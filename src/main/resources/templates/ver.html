@@ -11,6 +11,10 @@
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">
 
+				<h4 class="card-title">
+					<a class="btn btn-primary btn-xs" th:href="@{/factura/form/} + ${cliente.id}" th:text="'crear factura'"></a>
+				</h4>
+
 				<img th:if="${#strings.length(cliente.foto) > 0}"
 					class="img-thumbnail rounded float-left" style="max-width: 25%"
 					th:alt="${cliente.foto}" th:src="@{'/uploads/' + ${cliente.foto}}" />
@@ -28,7 +32,7 @@
 					<thead class="thead-inverse">
 						<tr>
 							<th>Folio</th>
-							<th>Descripción</th>
+							<th>DescripciÃ³n</th>
 							<th>Fecha</th>
 							<th>Total</th>
 						</tr>
