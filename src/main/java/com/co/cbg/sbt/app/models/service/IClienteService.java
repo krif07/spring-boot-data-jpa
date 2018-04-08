@@ -1,6 +1,7 @@
 package com.co.cbg.sbt.app.models.service;
 
 import com.co.cbg.sbt.app.models.entity.Cliente;
+import com.co.cbg.sbt.app.models.entity.Factura;
 import com.co.cbg.sbt.app.models.entity.Producto;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface IClienteService {
 	public void delete(Long id);
 	
 	public List<Producto> findByNombre(String nombre);
+	
+	public void saveFactura(Factura factura);
 	
 }
