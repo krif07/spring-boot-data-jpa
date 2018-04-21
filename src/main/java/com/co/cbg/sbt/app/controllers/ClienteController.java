@@ -6,6 +6,8 @@ import java.net.MalformedURLException;
 
 import javax.validation.Valid;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -31,11 +33,15 @@ import com.co.cbg.sbt.app.util.paginator.PageRender;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @SessionAttributes("cliente") //Para crear un objecto cliente en la sesion en cada que se guarda
 public class ClienteController {
 
+	protected final Log logger = LogFactory.getLog(this.getClass());
+	
 	@Autowired	
 	private IClienteService clienteService;
 	
@@ -74,7 +80,17 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value= {"/listar", "/"}, method=RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
+	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model, 
+			Authentication authentication) {
+		
+		if(authentication != null) {
+			logger.info("Usuario autenticado, tu nombre de usuario es: ".concat(authentication.getName()));
+		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth != null) {
+			logger.info("Forma estática: Usuario autenticado " + auth.getName());
+		}
 		
 		Pageable pageRequest = PageRequest.of(page, 5);
 		
