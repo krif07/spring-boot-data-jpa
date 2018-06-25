@@ -11,7 +11,7 @@
 	
 		<div class="card bg-light">
 	
-			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-header" th:text="#{text.cliente.listar.titulo}"></div>
 			
 			<div class="card-body">
 				
@@ -45,11 +45,12 @@
 							</td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
 								<a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}" th:text="#{text.cliente.editar}"></a>
+							</td>							
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs"
+								th:href="@{/eliminar/} + ${cliente.id}" th:text="#{text.cliente.eliminar}"
+								onclick="return confirm(document.getElementById('i18n_eliminar_cliente').innerHTML);"></a>
 							</td>
-							<td sec:authorize="hasRole('ROLE_ADMIN')">
-								<a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}" th:text="#{text.cliente.eliminar}" onclick="return confirm('Estás seguro que quieres eliminar?');"></a>
-							</td>
-						</tr>
+						</tr>						
 					</tbody>
 		
 				</table>

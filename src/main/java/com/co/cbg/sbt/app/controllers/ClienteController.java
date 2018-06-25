@@ -85,7 +85,7 @@ public class ClienteController {
 		}
 		
 		model.put("cliente", cliente);
-		model.put("titulo", "Detalle cliente: " + cliente.getNombre());
+		model.put("titulo", ": " + cliente.getNombre());
 		
 		return "ver";
 	}

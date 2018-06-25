@@ -3,16 +3,18 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 
+	<div id="i18n_eliminar_factura" th:text="#{text.cliente.factura.eliminarOk}" style="display: none;"></div>
+	
 	<header th:replace="layout/layout :: header"></header>
 
 	<div class="container py-4">
 
-		<div class="card bg-light">
-			<div class="card-header" th:text="${titulo}"></div>
+		<div class="card bg-light"> 
+			<div class="card-header" th:text="#{text.cliente.detalle.titulo} + ${titulo}"></div>
 			<div class="card-body">
 
 				<h4 class="card-title">
-					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-xs" th:href="@{/factura/form/} + ${cliente.id}" th:text="'crear factura'"></a>
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-xs" th:href="@{/factura/form/} + ${cliente.id}" th:text="#{text.cliente.factura.crear}"></a>
 				</h4>
 
 				<img th:if="${#strings.length(cliente.foto) > 0}"
@@ -29,14 +31,14 @@
 				<div th:if="${#lists.isEmpty(cliente.facturas)}" class="alert alert-info my-4" th:text="'No hay facturas asignadas al cliente: ' + ${cliente.nombre} + ' ' + ${cliente.apellido}"></div>
 				
 				<table th:if="${not #lists.isEmpty(cliente.facturas)}" class="table table-bordered table-striped my-4">
-					<thead class="thead-inverse">
+					<thead class="thead-inverse">						
 						<tr>
-							<th>Folio</th>
-							<th>Descripción</th>
-							<th>Fecha</th>
-							<th>Total</th>
-							<th sec:authorize="hasRole('ROLE_ADMIN')">Ver</th>
-							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+							<th th:text="#{text.cliente.factura.folio}">Folio</th>
+							<th th:text="#{text.cliente.factura.descripcion}">Descripción</th>
+							<th th:text="#{text.cliente.factura.fecha}">Fecha</th>
+							<th th:text="#{text.cliente.factura.total}">Total</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{text.cliente.factura.detalle}">Ver</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{text.cliente.factura.eliminar}">Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,10 +48,10 @@
 							<td th:text="${factura.createAt}"></td>
 							<td th:text="${factura.total}"></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
-								<a class="btn btn-primary btn-xs" th:href="@{/factura/ver/} + ${factura.id}" th:text="'ver factura'"></a>
+								<a class="btn btn-primary btn-xs" th:href="@{/factura/ver/} + ${factura.id}" th:text="#{text.cliente.factura.detalle}"></a>
 							</td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
-								<a class="btn btn-danger btn-xs" th:href="@{/factura/eliminar/} + ${factura.id}" th:text="'eliminar factura'" onclick="return confirm('¿Está seguro que desea eliminar la factura?')"></a>
+								<a class="btn btn-danger btn-xs" th:href="@{/factura/eliminar/} + ${factura.id}" th:text="#{text.cliente.factura.eliminar}" onclick="return confirm('¿Está seguro que desea eliminar la factura?')"></a>
 							</td>
 						</tr>
 					</tbody>
