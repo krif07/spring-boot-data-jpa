@@ -9,7 +9,7 @@
 		
 		<div class="card bg-dark text-white">
 	
-			<div class="card-header" th:text="#{text.cliente.form.titulo.editar}"></div>
+			<div class="card-header" th:text="${titulo}"></div>
 			
 			<div class="card-body">
 			
@@ -61,7 +61,7 @@
 					
 					<div class="form-group row">
 						<div class="col-sm-6">
-							<input type="submit" th:value="#{text.cliente.form.titulo.editar}" class="btn btn-secondary" />
+							<input type="submit" th:value="${titulo}" class="btn btn-secondary" />
 						</div>
 					</div>
 					
