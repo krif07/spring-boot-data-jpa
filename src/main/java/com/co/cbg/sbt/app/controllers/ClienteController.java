@@ -81,11 +81,11 @@ public class ClienteController {
 	//@Secured("ROLE_USER")
 	@PreAuthorize("hasRole('ROLE_USER')") //hasAnyRole('','')
 	@GetMapping(value="/ver/{id}")
-	public String ver(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+	public String ver(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash, Locale locale) {
 		
 		Cliente cliente = clienteService.fetchClienteByIdWithFacturas(id);
 		if(cliente==null) {
-			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
+			flash.addFlashAttribute("error", messageSource.getMessage("text.cliente.flash.db.error", null, locale));
 			return "redirect:/listar";
 		}
 		
@@ -168,13 +168,13 @@ public class ClienteController {
 		if(id > 0) {
 			cliente = clienteService.findOne(id);
 			if(cliente ==  null) {
-				flash.addFlashAttribute("error", "El cliente no existe");
+				flash.addFlashAttribute("error", messageSource.getMessage("text.cliente.flash.db.error", null, locale));
 				return "redirect:/listar";
 			}
 			
 		}
 		else {
-			flash.addFlashAttribute("error", "El cliente no puede tener id 0");
+			flash.addFlashAttribute("error", messageSource.getMessage("text.cliente.flash.id.error", null, locale));
 			return "redirect:/listar";
 		}
 		
@@ -214,11 +214,11 @@ public class ClienteController {
 				e.printStackTrace();
 			} 
 					
-			flash.addFlashAttribute("info", "La foto: " + uniqueFileName + ", se ha subido correctamente");				
+			flash.addFlashAttribute("info", messageSource.getMessage("text.cliente.flash.foto.subir.success", null, locale) + "'" + uniqueFileName + "'");
 			cliente.setFoto(uniqueFileName);
 		}
 		
-		String messageFlash = (cliente.getId() != null)? "El cliente fue editado con éxito" : "El cliente fue creado con éxito"; 
+		String messageFlash = (cliente.getId() != null) ? messageSource.getMessage("text.cliente.flash.editar.success", null, locale) : messageSource.getMessage("text.cliente.flash.crear.success", null, locale);
 		
 		clienteService.save(cliente);		
 		status.setComplete(); //Elimina el objeto cliente de la sesion
@@ -237,8 +237,9 @@ public class ClienteController {
 			clienteService.delete(id);
 			flash.addFlashAttribute("success",  messageSource.getMessage("text.cliente.flash.eliminar.success", null, locale));
 			
-			if(uploadFileService.delete(cliente.getFoto())) {
-				flash.addFlashAttribute("info", "La imagen: " + cliente.getFoto() + " fue eliminada");
+			if(uploadFileService.delete(cliente.getFoto())) {				
+				String mensajeFotoEliminar = String.format(messageSource.getMessage("text.cliente.flash.foto.eliminar.success", null, locale), cliente.getFoto());
+				flash.addFlashAttribute("info", mensajeFotoEliminar);
 			}
 			
 		}
