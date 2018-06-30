@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="facturas")
@@ -92,6 +93,8 @@ public class Factura implements Serializable {
 		this.createAt = createAt;
 	}
 
+	//Esta anotación omite el atributo en la serialización, no lo incluye en el xml
+	@XmlTransient
 	public Cliente getCliente() {
 		return cliente;
 	}
