@@ -23,7 +23,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "clientes")
@@ -49,13 +50,14 @@ public class Cliente implements Serializable {
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "YYYY-MM-dd")
+	@JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
 	private Date createAt;
 
 	private String foto;
 
 	//Solo llama al  cliente, no todas las facturas del cliente 
 	@OneToMany(mappedBy="cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL) 
-	@JsonIgnore
+	@JsonManagedReference
 	private List<Factura> facturas;
 	
 	public Cliente() {
