@@ -3,10 +3,10 @@ package com.co.cbg.sbt.app.auth;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class SympleGrantedAuthoritiesMixin {
+public abstract class SympleGrantedAuthorityMixin {
 
 	@JsonCreator
-	public SympleGrantedAuthoritiesMixin(@JsonProperty("authority") String role) {}
+	public SympleGrantedAuthorityMixin(@JsonProperty("authority") String role) {}
 
 	
 }
