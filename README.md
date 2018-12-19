@@ -1,0 +1,1 @@
+Código fuente de una aplicación desarrollada con Spring 5 – MVC, esta aplicación permite administrar una base de datos con clientes y sus facturas, permite crear, actualizar y borrar tanto clientes como facturas, ver detalles, etc. También permite la administración de usuarios del sistema y administración de diferentes idiomas.
